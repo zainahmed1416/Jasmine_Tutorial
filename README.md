@@ -1,33 +1,3 @@
-<!-----
-NEW: Check the "Suppress top comment" option to remove this info from the output.
-
-Conversion time: 0.651 seconds.
-
-
-Using this Markdown file:
-
-1. Paste this output into your source file.
-2. See the notes and action items below regarding this conversion run.
-3. Check the rendered output (headings, lists, code blocks, tables) for proper
-   formatting and use a linkchecker before you publish this page.
-
-Conversion notes:
-
-* Docs to Markdown version 1.0β29
-* Mon Nov 02 2020 16:44:32 GMT-0800 (PST)
-* Source doc: Jasmine Tutorial
-
-WARNING:
-You have 6 H1 headings. You may want to use the "H1 -> H2" option to demote all headings by one level.
-
------>
-
-
-<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 1; ALERTS: 0.</p>
-<ul style="color: red; font-weight: bold"><li>See top comment block for details on ERRORs and WARNINGs. <li>In the converted Markdown or HTML, search for inline alerts that start with >>>>>  gd2md-html alert:  for specific instances that need correction.</ul>
-
-<p style="color: red; font-weight: bold">Links to alert messages:</p>
-<p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
 
 
 
@@ -37,6 +7,11 @@ You have 6 H1 headings. You may want to use the "H1 -> H2" option to demote all 
 # Introduction
 
 Jasmine is a testing framework for Javascript that runs for Node.js or standalone in a browser. It is quite robust and flexible, compatible with all javascript-enabled frameworks. It aims to be non-intrusive on your IDE/application while having an easy to read and understand syntax. It is influenced by many other JavaScript unit testing frameworks.
+
+
+# Why Use Jasmine
+
+Jasmine is a simple and lightweight way to test anything with Javascript due to its minimally intrusive design and rich set of test matchers and even support for custom ones. Overall, it strives to make testing Javascript a very simple experience.
 
 
 # Installation
@@ -151,8 +126,100 @@ _Visit [this link ](https://jasmine.github.io/setup/nodejs.html)for more informa
 
 # Use
 
+Description
+
+Jasmine starts by describing tests and features, for this we use the `describe()` method. We first describe out units, then within our units we describe functions to be tested. When describing the function’s behavior, we use the `it()` method. This method describes function behavior and what it is expected to output. Within the `it`For example, testing the `GET` function of some server would look like this. 
+
+	`var request = require("request");`
+
+
+```
+	var base_url = "http://localhost:3000/"
+
+	describe("Some HTTP server", function() {
+		describe('GET /', function() {
+			it("returns status code 200", function() {
+				request.get(base_url, function(error, response, body){
+					expect(response.statusCode).toBe(200);
+				});
+			});
+		});
+	});
+```
+
+
 
 # Code Walkthrough
+
+Let us describe one Javascript test suite with Jasmine and how we would run it.
+
+
+```
+Touch spec/HelloWorldSpec.js
+```
+
+
+Jasmine specs typically describe a specific block of code or a specific function. So, the unit that makes up a Jasmine spec is the `describe` block. The describe block is the first step in writing a Jasmine test suite.
+
+
+```
+describe("Hello World Server", function() {
+
+});
+```
+
+
+So, the first argument in the block is a text description of the tested feature, and the other is the function call that would execute the expectations for the test. 
+
+The first thing we want to test on our server is whether it is returning the HTTP status OK (status code 200) when we send a GET request towards its root path.
+
+Let’s describe this behaviour with the following Jasmine description:
+
+
+```
+describe("Hello World Server", function() {
+  describe("GET /", function() {
+
+  });
+});
+```
+
+
+Now, let’s write our first expectation. We will use Jasmine’s it block to set up and test the status code that our server returned: 
+
+
+```
+describe("Hello World Server", function() {
+  describe("GET /", function() {
+    it("returns status code 200", function() {
+
+    });
+  });
+});
+```
+
+
+Next`,`we will use the request package to send a GET request toward our web server. We can load the package with the required keyword in Node.js, and to execute a request, we need to pass it a URL and a function that it will invoke once the request is returned.
+
+
+```
+var request = require("request");
+
+var base_url = "http://localhost:3000/"
+
+describe("Hello World Server", function() {
+  describe("GET /", function() {
+    it("returns status code 200", function() {
+      request.get(base_url, function(error, response, body) {
+
+      });
+    });
+  });
+});
+```
+
+
+Finally, we can now write our first expectation. Jasmine implements expectations with the expect() function that tests if a tested object _matches_ some of the expected conditions. For example, the following expect will match the value of the response.status to the number 200, with the .toBe matcher. Of course, there are so many more [matchers](https://jasmine.github.io/2.0/introduction.html#section-Included_Matchers).
 
 
 # Further Reading
